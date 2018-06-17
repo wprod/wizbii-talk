@@ -13,7 +13,7 @@
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+    <link rel="stylesheet" href="css/theme/solarized.css" id="theme">
 
     <!-- Custom styles -->
     <link rel="stylesheet" href="css/custom-styles.css">
@@ -43,11 +43,13 @@
     <header class="photo-credits backdrop"></header>
 
     <div class="slides">
-        <section>
+        <section style="text-align: left">
             <img src="img/Rx_Logo_S.png" style="margin: 20px">
             <img src="img/angular_logo.png" style="margin: 20px">
-            <br><br>
-            <h3>Un introduction a Rx</h3>
+            <br>
+            <h3>Une introduction à</h3>
+            <br>
+            <h1>ReactiveX</h1>
             <h2>ou la programation Reactive</h2>
             <h4>Featuring Rx<b>JS</b> & Angular</h4>
         </section>
@@ -81,17 +83,12 @@
         </section>
 
         <section>
-            <h2>Le Pattern <em>Observer</em></h2>
+            <h2>Le Pattern Observer</h2>
             <div class="fragment">
-                <h6> un objet, nommé subject, maintient une liste d'Observers et les <strong>notifient</strong> à chaque changement
-                    d'état en appelant une de leurs méthodes</h6>
-                <div class="fragment callout"
-                     data-callout="strong:contains('notifient')"
-                     data-callout-offset-left="-90"
-                     data-callout-offset-top="5"
-                     data-callout-offset-size="180">
-                    <div class="callout-circle"></div>
-                </div>
+                <h6>Un objet, nommé subject, maintient une liste d'Observers et les <strong>notifient</strong> à chaque
+                    changement
+                    d'état en appelant une de leurs méthodes.</h6>
+
             </div>
             <!--les observables tirent leur nom du pattern Observer. Il s'agit d'un vieux pattern de conception
             software dans lequel un objet, nommé subject, maintient une liste d'Observers et les notifient à
@@ -99,16 +96,16 @@
         </section>
 
         <section>
-            <h3>Anatomie d'un Observer</h3>
+            <h2>Anatomie d'un Observer</h2>
             <div class="fragment">
-                <img src="img/500px-Observer.svg_.png" alt="">
+                <img src="img/500px-Observer.svg_.png" alt="" style="padding: 2rem; background:white; border-radius: 2rem">
             </div>
         </section>
 
         <section>
-            <h3>Anatomie d'un Observer <strong>RxJs</strong></h3>
+            <h2>Anatomie d'un Observable RxJs</h2>
 
-                    <pre><code data-trim class="javascript">
+            <pre><code data-trim class="javascript">
 function Observable() { }
 /**
  * @param {Observer} observer
@@ -122,7 +119,7 @@ Observer.prototype.onError = function (error) { ... }
 Observer.prototype.onCompleted = function () { ... }
                     </code></pre>
 
-                <pre class="fragment"><code data-trim class="javascript">
+            <pre class="fragment"><code data-trim class="javascript">
 /**
  * @param {Function} onNext
  * @param {Function} onError
@@ -134,15 +131,18 @@ Observable.prototype.subscribe = function (onNext, onError, onCompleted) { ... }
         </section>
 
         <section>
-            <h3>Anatomie d'un <em>real life</em> Observer</h3>
+            <h2>Anatomie d'un flux IRL</h2>
             <iframe data-autoplay width="640" height="480"
-                    src="https://www.youtube.com/embed/hLYMD6R6PvU?rel=0&amp;controls=0&amp;showinfo=0&mute=1" frameborder="0"
+                    src="https://www.youtube.com/embed/hLYMD6R6PvU?rel=0&amp;controls=0&amp;showinfo=0&mute=1&start=8"
+                    frameborder="0"
                     allowfullscreen></iframe>
         </section>
 
 
         <section>
-            <h3>Opérateurs</h3>
+            <h2>Opérateurs</h2>
+            <div>
+
             <ul style="width:30%;float:left;margin-left:25%;">
                 <li>map</li>
                 <li>reduce</li>
@@ -157,39 +157,48 @@ Observable.prototype.subscribe = function (onNext, onError, onCompleted) { ... }
                 <li>et plein d'autres...</li>
                 <li class="fragment">plein plein d'autres</li>
             </ul>
+            </div>
+
         </section>
 
         <section>
-            <h4>Visualization avec des <br> <strong>Marble Diagrams</strong></h4>
+            <h4 style="font-size: 2rem">Visualization avec des</h4><h2>Marble Diagrams</h2>
             <img src="img/marble-diagram-legend.png" alt="">
             <p><a target="_blank" href="http://rxmarbles.com/">RxMarbles.com</a></p>
         </section>
 
         <section>
+            <h2>Filter</h2>
             <iframe class="marble-container" src="rxmarbles.html?type=filter" frameborder="0"></iframe>
         </section>
 
         <section>
+            <h2>Map</h2>
             <iframe class="marble-container" src="rxmarbles.html?type=map" frameborder="0"></iframe>
         </section>
 
         <section>
+            <h2>Debounce</h2>
             <iframe class="marble-container" src="rxmarbles.html?type=debounce" frameborder="0"></iframe>
         </section>
 
         <section>
+            <h2>Merge</h2>
             <iframe class="marble-container" src="rxmarbles.html?type=merge" frameborder="0"></iframe>
         </section>
 
         <section>
+            <h2>zip</h2>
             <iframe class="marble-container" src="rxmarbles.html?type=zip" frameborder="0"></iframe>
         </section>
 
         <section>
+            <h2>count</h2>
             <iframe class="marble-container" src="rxmarbles.html?type=count" frameborder="0"></iframe>
         </section>
 
         <section>
+            <h2>reduce</h2>
             <iframe class="marble-container" src="rxmarbles.html?type=reduce" frameborder="0"></iframe>
         </section>
 
@@ -213,17 +222,17 @@ const firstThree = delayed.take(3);
                     </code></pre>
         </section>
 
-        <section>
+        <section class="transparent">
             <h4><strong>Hot</strong> vs. <em>Cold</em> Observables</h4>
             <div class="fragment callout position-top"
                  data-callout="strong:contains('Hot')">
-                <div class="callout-text">Chaque soubscription <br>reçoit la meme valeur</div>
+                <div class="callout-text">Chaque soubscription <br>reçoit le meme flux</div>
                 <div class="callout-arrow"></div>
             </div>
             <div class="fragment callout position-bottom"
                  data-callout="em:contains('Cold')">
                 <div class="callout-arrow"></div>
-                <div class="callout-text">Les observables <br>ne sont pas partagés</div>
+                <div class="callout-text">Les flux <br>sont dupliqués</div>
             </div>
         </section>
 
@@ -309,7 +318,7 @@ clickCount$
             </div>
         </section>
 
-        <section>
+        <section class="transparent">
             <h4 class="rx-title">
                 <img src="img/angular_hel.png" alt="">
                 Angular
@@ -479,20 +488,20 @@ export class Autocomplete {
 
         <section style="text-align: left;">
             <h1>THE END</h1>
-            <ul>
-                <li><a href="http://reactivex.io/">ReactiveX</a></li>
-                <li><a href="https://www.youtube.com/watch?v=WKore-AkisY">A
-                    Playful Introduction to Rx by Erik Meijer</a></li>
-                <li><a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The
-                    introduction to Reactive Programming <br> you've been missing</a></li>
-                <li><a href="http://jhusain.github.io/learnrx/">Interactive tutorial
-                    to FRP in JavaScript</a></li>
-                <li>
-                    <a href="https://jhades-blog.herokuapp.com/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/">How
-                        to build Angular 2 apps using <br> Observable Data Services</a></li>
-                <li><a href="https://github.com/cvuorinen/angular2-excel">Demo:
-                    Angular 2 Excel</a></li>
-            </ul>
+            <!--<ul>-->
+                <!--<li><a href="http://reactivex.io/">ReactiveX</a></li>-->
+                <!--<li><a href="https://www.youtube.com/watch?v=WKore-AkisY">A-->
+                    <!--Playful Introduction to Rx by Erik Meijer</a></li>-->
+                <!--<li><a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The-->
+                    <!--introduction to Reactive Programming <br> you've been missing</a></li>-->
+                <!--<li><a href="http://jhusain.github.io/learnrx/">Interactive tutorial-->
+                    <!--to FRP in JavaScript</a></li>-->
+                <!--<li>-->
+                    <!--<a href="https://jhades-blog.herokuapp.com/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/">How-->
+                        <!--to build Angular 2 apps using <br> Observable Data Services</a></li>-->
+                <!--<li><a href="https://github.com/cvuorinen/angular2-excel">Demo:-->
+                    <!--Angular 2 Excel</a></li>-->
+            <!--</ul>-->
         </section>
 
     </div>
@@ -514,7 +523,7 @@ export class Autocomplete {
     // Full list of configuration options available at:
     // https://github.com/hakimel/reveal.js#configuration
     Reveal.initialize({
-        controls: false,
+        controls: true,
         progress: true,
         history: true,
         center: true,

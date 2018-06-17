@@ -2,20 +2,87 @@
 @import url(../lib/font/Architects_Daughter/ArchitectsDaughter.css);
 @import url(../lib/font/Quicksand/Quicksand.css);
 @import url(../lib/font/Open_Sans/OpenSans.css);
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900|Montserrat:400,700,900');
 
 body {
-    background: #fff;
+    font-family: 'Montserrat', sans-serif;
+    background: url('../img/computer.jpg');
+    background-size: cover;
 }
+
+section {
+    background: #efe5ca;
+    padding: 1rem 2rem 2rem !important;
+    border-radius: 7px;
+}
+
+section.transparent {
+    background: transparent;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+    font-family: 'Montserrat', serif;
+    font-weight: bolder;
+    color: initial;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+}
+
+.reveal h1 {
+    font-size: 4rem;
+}
+
+.reveal h2 {
+    font-size: 3rem;
+}
+
+.reveal h3 {
+    font-size: 2rem;
+}
+
+.reveal h3 {
+    font-size: 1rem;
+}
+
+.reveal h4 {
+    font-size: 4rem;
+}
+
+.reveal h1::before,
+.reveal h2::before {
+    content: "";
+    display: inline-block;
+    background-image: linear-gradient(to right, #f857a6, #ff5858);
+    position: absolute;
+    width:calc(100% + 20px);
+    height: 25%;
+    left: -10px;
+    bottom: 10%;
+    z-index:-1;
+    -webkit-transition: all 500ms cubic-bezier(0.620, 0.055, 0.520, 1); /* older webkit */
+    -webkit-transition: all 500ms cubic-bezier(0.620, 0.055, 0.520, 1.650);
+    -moz-transition: all 500ms cubic-bezier(0.620, 0.055, 0.520, 1.650);
+    -o-transition: all 500ms cubic-bezier(0.620, 0.055, 0.520, 1.650);
+    transition: all 500ms cubic-bezier(0.620, 0.055, 0.520, 1.650); /* custom */
+
+    -webkit-transition-timing-function: cubic-bezier(0.620, 0.055, 0.520, 1); /* older webkit */
+    -webkit-transition-timing-function: cubic-bezier(0.620, 0.055, 0.520, 1.650);
+    -moz-transition-timing-function: cubic-bezier(0.620, 0.055, 0.520, 1.650);
+    -o-transition-timing-function: cubic-bezier(0.620, 0.055, 0.520, 1.650);
+    transition-timing-function: cubic-bezier(0.620, 0.055, 0.520, 1.650); /* custom */
+}
+
 
 .reveal h4,
 .reveal h5,
 .reveal h6 {
     text-transform: none;
+    font-family: 'Lato', sans-serif;
 }
 
-.reveal h4 {
-    font-size: 1.3em;
-}
 
 .reveal p, .reveal li {
     font-family: 'Quicksand', sans-serif;
@@ -231,7 +298,7 @@ body {
  * Override some code highlight styles
  */
 .reveal pre {
-    width: 1000px;
+    width: 100%;
     border-radius: 3px;
     box-shadow: none;
     border: 2px solid #f0f0f0;
