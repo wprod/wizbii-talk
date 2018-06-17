@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Wizbii RxJs</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/custom-styles.css">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/github.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="reveal">
+    <header class="photo-credits backdrop"></header>
+
+    <div class="slides">
+        <section>
+            <img src="img/Rx_Logo_S.png" style="margin: 20px">
+            <img src="img/angular_logo.png" style="margin: 20px">
+            <br><br>
+            <h3>Un introduction a Rx</h3>
+            <h2>ou la programation Reactive</h2>
+            <h4>Featuring Rx<b>JS</b> & Angular</h4>
+        </section>
+
+        <section>
+            <h4>ReactiveX</h4>
+            <ul style="width:40%;float:left;margin-left:15%;">
+                <li>Kotlin: <a href="https://github.com/ReactiveX/RxKotlin" target="_blank">RxKotlin</a></li>
+                <li class="fragment">JavaScript: <a href="https://github.com/Reactive-Extensions/RxJS" target="_blank">RxJS</a>
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                </li>
+                <li class="fragment">C++: <a href="https://github.com/Reactive-Extensions/RxCpp"
+                                             target="_blank">RxCpp</a></li>
+                <li class="fragment">Python: <a href="https://github.com/ReactiveX/RxPY" target="_blank">RxPY</a></li>
+            </ul>
+            <ul style="width:40%;float:left;">
+                <li class="fragment">et plein d'autres...</li>
+            </ul>
+        </section>
+
+        <section>
+            <h4 class="rx-title">
+                <img src="img/Rx_Logo_S.png" alt="">
+                ReactiveX
+            </h4>
+            <p style="clear:both;">
+                Une librairie de flux reactifs qui permet de travailler avec des <em>flux de données
+                asynchrones</em>. La programmation réactive est un paradime de programmation orienté flux de données et
+                <strong>propagation des changements</strong>.
+            </p>
+        </section>
+
+        <section>
+            <h2>Le Pattern <em>Observer</em></h2>
+            <div class="fragment">
+                <h6> un objet, nommé subject, maintient une liste d'Observers et les <strong>notifient</strong> à chaque changement
+                    d'état en appelant une de leurs méthodes</h6>
+                <div class="fragment callout"
+                     data-callout="strong:contains('notifient')"
+                     data-callout-offset-left="-90"
+                     data-callout-offset-top="5"
+                     data-callout-offset-size="180">
+                    <div class="callout-circle"></div>
+                </div>
+            </div>
+            <!--les observables tirent leur nom du pattern Observer. Il s'agit d'un vieux pattern de conception
+            software dans lequel un objet, nommé subject, maintient une liste d'Observers et les notifient à
+            chaque changement d'état en appelant une de leurs méthodes.-->
+        </section>
+
+        <section>
+            <h3>Anatomie d'un Observer</h3>
+            <div class="fragment">
+                <img src="img/500px-Observer.svg_.png" alt="">
+            </div>
+        </section>
+
+        <section>
+            <h3>Anatomie d'un Observer <strong>RxJs</strong></h3>
+
+                    <pre><code data-trim class="javascript">
+function Observable() { }
+/**
+ * @param {Observer} observer
+ * @returns {Disposable}
+ */
+Observable.prototype.subscribe = function (observer) { ... }
+
+function Observer() { }
+Observer.prototype.onNext = function (value) { ... }
+Observer.prototype.onError = function (error) { ... }
+Observer.prototype.onCompleted = function () { ... }
+                    </code></pre>
+
+                <pre class="fragment"><code data-trim class="javascript">
+/**
+ * @param {Function} onNext
+ * @param {Function} onError
+ * @param {Function} onCompleted
+ * @returns {Disposable}
+ */
+Observable.prototype.subscribe = function (onNext, onError, onCompleted) { ... }
+                    </code></pre>
+        </section>
+
+        <section>
+            <h3>Anatomie d'un <em>real life</em> Observer</h3>
+            <iframe data-autoplay width="640" height="480"
+                    src="https://www.youtube.com/embed/hLYMD6R6PvU?rel=0&amp;controls=0&amp;showinfo=0&mute=1" frameborder="0"
+                    allowfullscreen></iframe>
+        </section>
+
+
+        <section>
+            <h3>Opérateurs</h3>
+            <ul style="width:30%;float:left;margin-left:25%;">
+                <li>map</li>
+                <li>reduce</li>
+                <li>filter</li>
+                <li>scan</li>
+                <li>flatMap</li>
+            </ul>
+            <ul style="width:40%;float:left;">
+                <li>merge</li>
+                <li>zip</li>
+                <li>switch</li>
+                <li>et plein d'autres...</li>
+                <li class="fragment">plein plein d'autres</li>
+            </ul>
+        </section>
+
+        <section>
+            <h4>Visualization avec des <br> <strong>Marble Diagrams</strong></h4>
+            <img src="img/marble-diagram-legend.png" alt="">
+            <p><a target="_blank" href="http://rxmarbles.com/">RxMarbles.com</a></p>
+        </section>
+
+        <section>
+            <iframe class="marble-container" src="rxmarbles.html?type=filter" frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <iframe class="marble-container" src="rxmarbles.html?type=map" frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <iframe class="marble-container" src="rxmarbles.html?type=debounce" frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <iframe class="marble-container" src="rxmarbles.html?type=merge" frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <iframe class="marble-container" src="rxmarbles.html?type=zip" frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <iframe class="marble-container" src="rxmarbles.html?type=count" frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <iframe class="marble-container" src="rxmarbles.html?type=reduce" frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <h4>ASCII diagrams</h4>
+            <pre><code class="code javascript" contenteditable data-trim>
+// letters:
+// -----a-----b-----c-----d-----e-----f-----|
+
+const uppercase = letters.map(x => x.toUpperCase());
+
+// -----A-----B-----C-----D-----E-----F-----|
+
+const delayed = uppercase.delay(1000);
+
+// ---------------A-----B-----C-----D-----E-----F-----|
+
+const firstThree = delayed.take(3);
+
+// ---------------A-----B-----C|
+                    </code></pre>
+        </section>
+
+        <section>
+            <h4><strong>Hot</strong> vs. <em>Cold</em> Observables</h4>
+            <div class="fragment callout position-top"
+                 data-callout="strong:contains('Hot')">
+                <div class="callout-text">Chaque soubscription <br>reçoit la meme valeur</div>
+                <div class="callout-arrow"></div>
+            </div>
+            <div class="fragment callout position-bottom"
+                 data-callout="em:contains('Cold')">
+                <div class="callout-arrow"></div>
+                <div class="callout-text">Les observables <br>ne sont pas partagés</div>
+            </div>
+        </section>
+
+        <section>
+            <div class="cols">
+                <div class="col">
+                            <pre><code class="code javascript" contenteditable data-trim>
+const source = Rx.Observable
+  .interval(1000)
+  .take(5)
+
+source.subscribe(
+  (x) => print("x = " + x)
+);
+
+
+                            </code></pre>
+                </div>
+                <div class="col output">
+                    <pre></pre>
+                </div>
+            </div>
+            <div>
+                <button class="button" onclick="runCode(this)">&#9654;&nbsp; Run</button>
+            </div>
+        </section>
+
+        <section>
+            <div class="cols">
+                <div class="col">
+                            <pre><code class="code javascript" contenteditable data-trim>
+Rx.Observable
+  .fromEvent(document, 'keyup')
+  .map(event => event.keyCode)
+  .filter(key => key > 47 && key < 91)
+  .map(key => String.fromCharCode(key))
+  .subscribe(key =>
+    print(`You pressed: ${key}`))
+                            </code></pre>
+                </div>
+                <div class="col output">
+                    <pre></pre>
+                </div>
+            </div>
+            <div>
+                <button class="button" onclick="runCode(this)">&#9654;&nbsp; Run</button>
+            </div>
+        </section>
+
+        <section>
+            <div class="cols">
+                <div class="col">
+                            <pre><code class="code javascript" contenteditable data-trim>
+const click$ = Rx.Observable
+  .fromEvent(document, 'click')
+
+const clickCount$ = click$
+  .buffer(() => click$.debounce(500))
+  .map(events => events.length)
+
+clickCount$
+  .filter(count => count == 1)
+  .subscribe(() =>
+    print('Un click'))
+
+clickCount$
+  .filter(count => count == 2)
+  .subscribe(() =>
+    print('Wow, un doubleclick!'))
+
+clickCount$
+  .filter(count => count > 2)
+  .subscribe(() =>
+    print('Omg, triple click!!!'))
+                            </code></pre>
+                </div>
+                <div class="col output">
+                    <pre></pre>
+                </div>
+            </div>
+            <div>
+                <button class="button" onclick="runCode(this)">&#9654;&nbsp; Run</button>
+            </div>
+        </section>
+
+        <section>
+            <h4 class="rx-title">
+                <img src="img/angular_hel.png" alt="">
+                Angular
+            </h4>
+        </section>
+
+        <section>
+            <h4>Dépend d'<strong>RxJS</strong></h4>
+            <p>utilise la version 6 (encore en beta)</p>
+        </section>
+
+        <section>
+            <h4>AsyncPipe</h4>
+            <pre><code class="code typescript" data-trim>
+import {AsyncPipe} from "angular";
+
+@Component({
+  selector: "list",
+  pipes: [AsyncPipe],
+  template: `&lt;h4&gt;{{ title | async }}&lt;/h4&gt;
+             &lt;ul&gt;
+               &lt;li *ngFor="#item of items | async"&gt;{{ item }}&lt;/li&gt;
+             &lt;/ul&gt;`
+})
+export class List {
+  @Input() title: Observable&lt;string&gt;;
+  @Input() items: Observable&lt;string[]&gt;;
+}
+                    </code></pre>
+            <div class="fragment callout position-top"
+                 data-callout="span.hljs-string:contains('list')"
+                 data-callout-offset-left="180"
+                 data-callout-offset-top="40">
+                <div class="callout-text">Subscribes to the Observable</div>
+                <div class="callout-arrow"></div>
+            </div>
+        </section>
+
+        <section>
+            <h4>AsyncPipe & OnPush</h4>
+            <pre><code class="code typescript" data-trim data-noescape>
+import {AsyncPipe} from "angular2/common";
+<mark>import {ChangeDetectionStrategy} from "angular2/core";</mark>
+
+@Component({
+  selector: "list",
+  pipes: [AsyncPipe],
+  <mark>changeDetection: ChangeDetectionStrategy.OnPush,</mark>
+  template: `&lt;h4&gt;{{ title | async }}&lt;/h4&gt;
+             &lt;ul&gt;
+               &lt;li *ngFor="#item of items | async"&gt;{{ item }}&lt;/li&gt;
+             &lt;/ul&gt;`
+})
+export class List {
+  @Input() title: Observable&lt;string&gt;;
+  @Input() items: Observable&lt;string[]&gt;;
+}
+                    </code></pre>
+            <!-- http://plnkr.co/edit/nYJR0DxHjArNoBx20fnm -->
+        </section>
+
+        <section>
+            <h4>Control & ngFormControl</h4>
+            <pre><code class="code typescript" data-trim>
+import {Control} from "angular/common";
+
+@Component({
+  selector: "search",
+  template: `&lt;input [ngFormControl]="search"&gt;`
+})
+export class Search {
+  search: Control = new Control();
+  values: Observable&lt;string&gt; = this.search.valueChanges;
+}
+                    </code></pre>
+        </section>
+
+        <section>
+            <h4>DIY valueChanges Observable</h4>
+            <pre><code class="code typescript" data-trim>
+import {ViewChild} from "angular/core";
+
+@Component({
+  selector: "search",
+  template: `&lt;input #search&gt;`
+})
+export class Search implements AfterViewInit {
+  @ViewChild('search') searchInput;
+  valueChanges: Observable&lt;string&gt;;
+
+  ngAfterViewInit() {
+    this.valueChanges = Observable
+      .fromEvent(this.searchInput.nativeElement, 'change')
+      .map(event => event.target.value);
+  }
+}
+                    </code></pre>
+        </section>
+
+        <section>
+            <h4>Http</h4>
+            <pre><code class="code typescript" data-trim>
+import {Http} from "angular/http";
+
+@Injectable()
+export class GithubSearch {
+  private baseUrl = "https://api.github.com";
+
+  constructor(private http: Http) {}
+
+  searchUsers(term: string): Observable&lt;string[]&gt; {
+    return this.http.get(this.baseUrl + "/search/users?q=" + term)
+      .map(response => response.json())
+      .map(result => result.items.map(item => item.login))
+      .share();
+  }
+}
+                    </code></pre>
+            <div class="fragment callout position-right"
+                 data-callout="span.hljs-string:contains('search')"
+                 data-callout-offset-left="-470"
+                 data-callout-offset-top="90">
+                <div class="callout-arrow"></div>
+                <div class="callout-text"><i class="fa fa-heart" aria-hidden="true"></i></div>
+            </div>
+        </section>
+
+        <section>
+            <div style="height:60px;text-align:left;position:relative;">
+                <input type="text" id="autocomplete" style="font-size:16px;padding:5px;">
+                <div id="autocomplete-suggestions"></div>
+            </div>
+            <div class="cols2">
+                <div class="col2">
+                            <pre><code class="code typescript" data-trim>
+@Component({
+    selector: "autocomplete",
+    pipes: [AsyncPipe],
+    template: `&lt;input [ngFormControl]="search"&gt;
+               &lt;ul&gt;
+                 &lt;li *ngFor="#suggestion of suggestions | async"&gt;
+                   {{ suggestion }}
+                 &lt;/li&gt;
+               &lt;/ul&gt;`
+})
+export class Autocomplete {
+    public search = new Control();
+    public suggestions: Observable&lt;string[]&gt;;
+
+    constructor(github: GithubSearch) {
+        this.suggestions = this.search.valueChanges
+            .debounceTime(400)
+            .map(keyword => keyword.trim())
+            .filter(keyword => keyword.length > 0)
+            .distinctUntilChanged()
+            .map(keyword => github.searchUsers(keyword))
+            .switch();
+    }
+}
+                            </code></pre>
+                </div>
+
+            </div>
+            <!-- http://plnkr.co/edit/sJ7nopEGhhhTXyVuwccf -->
+            <!-- http://plnkr.co/edit/gPInaMHTbVsI17oKQV9u -->
+        </section>
+
+        <section style="text-align: left;">
+            <h1>THE END</h1>
+            <ul>
+                <li><a href="http://reactivex.io/">ReactiveX</a></li>
+                <li><a href="https://www.youtube.com/watch?v=WKore-AkisY">A
+                    Playful Introduction to Rx by Erik Meijer</a></li>
+                <li><a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The
+                    introduction to Reactive Programming <br> you've been missing</a></li>
+                <li><a href="http://jhusain.github.io/learnrx/">Interactive tutorial
+                    to FRP in JavaScript</a></li>
+                <li>
+                    <a href="https://jhades-blog.herokuapp.com/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/">How
+                        to build Angular 2 apps using <br> Observable Data Services</a></li>
+                <li><a href="https://github.com/cvuorinen/angular2-excel">Demo:
+                    Angular 2 Excel</a></li>
+            </ul>
+        </section>
+
+    </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<!-- jQuery, Babel, RxJs & my custom js -->
+<!-- copied from node_modules/ to js/ for so they can be committed and work with gh-pages -->
+<script src="js/jquery.min.js"></script> <!-- copy from node_modules/jquery/dist/jquery.min.js -->
+<script src="js/babel.min.js"></script> <!-- copy from node_modules/babel-standalone/babel.min.js -->
+<script src="js/rx.all.min.js"></script> <!-- copy from node_modules/rx/dist/rx.all.min.js -->
+<script src="js/custom-scripts.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: 'lib/js/classList.js', condition: function () {
+                    return !document.body.classList;
+                }
+            },
+            {
+                src: 'plugin/markdown/marked.js', condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            },
+            {
+                src: 'plugin/markdown/markdown.js', condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            },
+            {
+                src: 'plugin/highlight/highlight.js', async: true, condition: function () {
+                    return !!document.querySelector('pre code');
+                }, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {src: 'plugin/zoom-js/zoom.js', async: true},
+            {src: 'plugin/notes/notes.js', async: true}
+        ]
+    });
+
+</script>
+
+</body>
+</html>
