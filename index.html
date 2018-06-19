@@ -77,9 +77,20 @@
             </h4>
             <p style="clear:both;">
                 Une librairie de flux reactifs qui permet de travailler avec des <em>flux de données
-                asynchrones</em>. La programmation réactive est un paradime de programmation orienté flux de données et
-                <strong>propagation des changements</strong>.
+                asynchrones</em>.
             </p>
+
+            <aside class="notes">
+                <strong>Flux</strong> : Séquence de données disponibles au fils du temps. Le streaming vidéo est un bon
+                exemple : vous
+                n'avez pas à attendre la fin du téléchargement pour voir la video.
+
+                <strong>Données</strong> : Données brutes au format JavaScript tels que : Number, String, Object, …
+
+                <strong>Asynchrones</strong> : En Javascript, c'est le mécansime que vous permet d'appeler une fonction
+                et d'enregistrer
+                une callback qui sera exécutée à la fin du traitement
+            </aside>
         </section>
 
         <section>
@@ -90,33 +101,39 @@
                     d'état en appelant une de leurs méthodes.</h6>
 
             </div>
-            <!--les observables tirent leur nom du pattern Observer. Il s'agit d'un vieux pattern de conception
-            software dans lequel un objet, nommé subject, maintient une liste d'Observers et les notifient à
-            chaque changement d'état en appelant une de leurs méthodes.-->
+            <aside class="notes">les observables tirent leur nom du pattern Observer. Il s'agit d'un vieux pattern de
+                conception
+                software dans lequel un objet, nommé subjec ->
+            </aside>
         </section>
 
         <section>
             <h2>Anatomie d'un Observer</h2>
             <div class="fragment">
-                <img src="img/500px-Observer.svg_.png" alt="" style="padding: 2rem; background:white; border-radius: 2rem">
+                <img src="img/500px-Observer.svg_.png" alt=""
+                     style="padding: 2rem; background:white; border-radius: 2rem">
             </div>
+            <aside class="notes">
+                Le Subject maintient une liste d'Observers et les <strong>notifient</strong> à chaque
+                changement d'état en appelant une de leurs méthodes.
+            </aside>
         </section>
 
         <section>
             <h2>Anatomie d'un Observable RxJs</h2>
 
             <pre><code data-trim class="javascript">
-function Observable() { }
-/**
- * @param {Observer} observer
- * @returns {Disposable}
- */
-Observable.prototype.subscribe = function (observer) { ... }
+                function Observable() { }
+                /**
+                 * @param {Observer} observer
+                 * @returns {Disposable}
+                 */
+                Observable.prototype.subscribe = function (observer) { ... }
 
-function Observer() { }
-Observer.prototype.onNext = function (value) { ... }
-Observer.prototype.onError = function (error) { ... }
-Observer.prototype.onCompleted = function () { ... }
+                function Observer() { }
+                Observer.prototype.onNext = function (value) { ... }
+                Observer.prototype.onError = function (error) { ... }
+                Observer.prototype.onCompleted = function () { ... }
                     </code></pre>
 
             <pre class="fragment"><code data-trim class="javascript">
@@ -128,6 +145,22 @@ Observer.prototype.onCompleted = function () { ... }
  */
 Observable.prototype.subscribe = function (onNext, onError, onCompleted) { ... }
                     </code></pre>
+
+            <aside class="notes">
+                Dans la librairie RxJS, Subjects hérite de Observable. Donc un Subject a les même opérateurs et méthodes
+                que Observable. La différence entre un Subject et un Observable est que <strong>le Subject a un etat et une
+                liste d'Observers</strong> tandis que l'Observable est simplement une <strong>fonction</strong>. <br>Les Subject permettent de créer
+                des sources de données tandis que les Observable emettent les données.
+<br>
+                RxJS combine des Subjects, des Observables, des Operateurs, et des Observers. Les Observables envoient
+                des notifications, les Opérateurs les transforment, tandis que les Observeurs les reçoivent.
+            </aside>
+        </section>
+
+        <section>
+            <h2>Anatomie d'un flux</h2>
+            <img src="img/marble-diagram-legend.png" alt=""
+                 style="padding: 2rem; background:white; border-radius: 2rem">
         </section>
 
         <section>
@@ -143,26 +176,27 @@ Observable.prototype.subscribe = function (onNext, onError, onCompleted) { ... }
             <h2>Opérateurs</h2>
             <div>
 
-            <ul style="width:30%;float:left;margin-left:25%;">
-                <li>map</li>
-                <li>reduce</li>
-                <li>filter</li>
-                <li>scan</li>
-                <li>flatMap</li>
-            </ul>
-            <ul style="width:40%;float:left;">
-                <li>merge</li>
-                <li>zip</li>
-                <li>switch</li>
-                <li>et plein d'autres...</li>
-                <li class="fragment">plein plein d'autres</li>
-            </ul>
+                <ul style="width:30%;float:left;margin-left:25%;">
+                    <li>map</li>
+                    <li>reduce</li>
+                    <li>filter</li>
+                    <li>scan</li>
+                    <li>flatMap</li>
+                </ul>
+                <ul style="width:40%;float:left;">
+                    <li>merge</li>
+                    <li>zip</li>
+                    <li>switch</li>
+                    <li>et plein d'autres...</li>
+                    <li class="fragment">plein plein d'autres</li>
+                </ul>
             </div>
 
         </section>
 
         <section>
-            <h4 style="font-size: 2rem">Visualization avec des</h4><h2>Marble Diagrams</h2>
+            <h4 style="font-size: 2rem">Visualization avec des</h4>
+            <h2>Marble Diagrams</h2>
             <img src="img/marble-diagram-legend.png" alt="">
             <p><a target="_blank" href="http://rxmarbles.com/">RxMarbles.com</a></p>
         </section>
@@ -283,6 +317,14 @@ Rx.Observable
         </section>
 
         <section>
+            <h2>clickCount$</h2>
+            <div class="fragment">
+                <img src="img/buffer.png" alt=""
+                     style="padding: 2rem; background:white; border-radius: 2rem">
+
+        </section>
+
+        <section>
             <div class="cols">
                 <div class="col">
                             <pre><code class="code javascript" contenteditable data-trim>
@@ -331,45 +373,16 @@ clickCount$
         </section>
 
         <section>
-            <h4>AsyncPipe</h4>
-            <pre><code class="code typescript" data-trim>
-import {AsyncPipe} from "angular";
-
-@Component({
-  selector: "list",
-  pipes: [AsyncPipe],
-  template: `&lt;h4&gt;{{ title | async }}&lt;/h4&gt;
-             &lt;ul&gt;
-               &lt;li *ngFor="#item of items | async"&gt;{{ item }}&lt;/li&gt;
-             &lt;/ul&gt;`
-})
-export class List {
-  @Input() title: Observable&lt;string&gt;;
-  @Input() items: Observable&lt;string[]&gt;;
-}
-                    </code></pre>
-            <div class="fragment callout position-top"
-                 data-callout="span.hljs-string:contains('list')"
-                 data-callout-offset-left="180"
-                 data-callout-offset-top="40">
-                <div class="callout-text">Subscribes to the Observable</div>
-                <div class="callout-arrow"></div>
-            </div>
-        </section>
-
-        <section>
             <h4>AsyncPipe & OnPush</h4>
             <pre><code class="code typescript" data-trim data-noescape>
-import {AsyncPipe} from "angular2/common";
-<mark>import {ChangeDetectionStrategy} from "angular2/core";</mark>
+<mark>import {ChangeDetectionStrategy} from "angular/core";</mark>
 
 @Component({
   selector: "list",
-  pipes: [AsyncPipe],
   <mark>changeDetection: ChangeDetectionStrategy.OnPush,</mark>
   template: `&lt;h4&gt;{{ title | async }}&lt;/h4&gt;
              &lt;ul&gt;
-               &lt;li *ngFor="#item of items | async"&gt;{{ item }}&lt;/li&gt;
+               &lt;li *ngFor="let item of items | async"&gt;{{ item }}&lt;/li&gt;
              &lt;/ul&gt;`
 })
 export class List {
@@ -378,41 +391,34 @@ export class List {
 }
                     </code></pre>
             <!-- http://plnkr.co/edit/nYJR0DxHjArNoBx20fnm -->
+            <aside class="note">
+                every time something changes in our application, as a result of various user events, timers, XHR, promises, etc., a change detection will run on all components.
+            </aside>
         </section>
 
         <section>
-            <h4>Control & ngFormControl</h4>
+            <h4>DIY Observable</h4>
             <pre><code class="code typescript" data-trim>
-import {Control} from "angular/common";
+class Autocomplete implements OnInit {
+  public search: string;
+  public search$: Subject&lt;string&gt; = new Subject();
+  public suggestions: Observable&lt;string[]&gt;;
 
-@Component({
-  selector: "search",
-  template: `&lt;input [ngFormControl]="search"&gt;`
-})
-export class Search {
-  search: Control = new Control();
-  values: Observable&lt;string&gt; = this.search.valueChanges;
-}
-                    </code></pre>
-        </section>
+  constructor(private github: GithubSearch) {}
 
-        <section>
-            <h4>DIY valueChanges Observable</h4>
-            <pre><code class="code typescript" data-trim>
-import {ViewChild} from "angular/core";
+  ngOnInit () {
+    this.search$.pipe(
+      debounceTime(200),
+      map(keyword => keyword.trim()),
+      filter(keyword => keyword.length > 0),
+      distinctUntilChanged(),
+      map(keyword => this.github.searchUsers(keyword)),
+      map(result => this.suggestions = result),
+    ).subscribe();
+  }
 
-@Component({
-  selector: "search",
-  template: `&lt;input #search&gt;`
-})
-export class Search implements AfterViewInit {
-  @ViewChild('search') searchInput;
-  valueChanges: Observable&lt;string&gt;;
-
-  ngAfterViewInit() {
-    this.valueChanges = Observable
-      .fromEvent(this.searchInput.nativeElement, 'change')
-      .map(event => event.target.value);
+  onSearchChange(event) {
+    this.search$.next(event);
   }
 }
                     </code></pre>
@@ -421,21 +427,24 @@ export class Search implements AfterViewInit {
         <section>
             <h4>Http</h4>
             <pre><code class="code typescript" data-trim>
-import {Http} from "angular/http";
-
 @Injectable()
 export class GithubSearch {
   private baseUrl = "https://api.github.com";
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {
+  }
 
   searchUsers(term: string): Observable&lt;string[]&gt; {
-    return this.http.get(this.baseUrl + "/search/users?q=" + term)
-      .map(response => response.json())
-      .map(result => result.items.map(item => item.login))
-      .share();
+    return this.http
+      .get(this.baseUrl + "/search/users?q=" + term)
+      .pipe(
+        map((response: any) => response.items.map(item => item.login)),
+        share()
+      )
   }
 }
+
+
                     </code></pre>
             <div class="fragment callout position-right"
                  data-callout="span.hljs-string:contains('search')"
@@ -455,28 +464,39 @@ export class GithubSearch {
                 <div class="col2">
                             <pre><code class="code typescript" data-trim>
 @Component({
-    selector: "autocomplete",
-    pipes: [AsyncPipe],
-    template: `&lt;input [ngFormControl]="search"&gt;
-               &lt;ul&gt;
-                 &lt;li *ngFor="#suggestion of suggestions | async"&gt;
-                   {{ suggestion }}
-                 &lt;/li&gt;
-               &lt;/ul&gt;`
+  selector: 'autocomplete',
+  template:
+    `&lt;input [(ngModel)]="search" (ngModelChange)="onSearchChange($event)"&gt;
+     &lt;ul&gt;
+         &lt;li *ngFor="let suggestion  of suggestions | async"&gt;
+             {{ suggestion }}
+         &lt;/li&gt;
+     &lt;/ul&gt;`
+  providers: [GithubSearch],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Autocomplete {
-    public search = new Control();
-    public suggestions: Observable&lt;string[]&gt;;
+export class Autocomplete implements OnInit {
 
-    constructor(github: GithubSearch) {
-        this.suggestions = this.search.valueChanges
-            .debounceTime(400)
-            .map(keyword => keyword.trim())
-            .filter(keyword => keyword.length > 0)
-            .distinctUntilChanged()
-            .map(keyword => github.searchUsers(keyword))
-            .switch();
-    }
+  public search: string;
+  public search$: Subject&lt;string> = new Subject();
+  public suggestions: Observable&lt;string[]>;
+
+  constructor(private github: GithubSearch) {}
+
+  ngOnInit () {
+    this.search$.pipe(
+      debounceTime(200),
+      map(keyword => keyword.trim()),
+      filter(keyword => keyword.length > 0),
+      distinctUntilChanged(),
+      map(keyword => this.github.searchUsers(keyword)),
+      map(result => this.suggestions = result),
+    ).subscribe();
+  }
+
+  onSearchChange(event) {
+    this.search$.next(event);
+  }
 }
                             </code></pre>
                 </div>
@@ -488,20 +508,6 @@ export class Autocomplete {
 
         <section style="text-align: left;">
             <h1>THE END</h1>
-            <!--<ul>-->
-                <!--<li><a href="http://reactivex.io/">ReactiveX</a></li>-->
-                <!--<li><a href="https://www.youtube.com/watch?v=WKore-AkisY">A-->
-                    <!--Playful Introduction to Rx by Erik Meijer</a></li>-->
-                <!--<li><a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The-->
-                    <!--introduction to Reactive Programming <br> you've been missing</a></li>-->
-                <!--<li><a href="http://jhusain.github.io/learnrx/">Interactive tutorial-->
-                    <!--to FRP in JavaScript</a></li>-->
-                <!--<li>-->
-                    <!--<a href="https://jhades-blog.herokuapp.com/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/">How-->
-                        <!--to build Angular 2 apps using <br> Observable Data Services</a></li>-->
-                <!--<li><a href="https://github.com/cvuorinen/angular2-excel">Demo:-->
-                    <!--Angular 2 Excel</a></li>-->
-            <!--</ul>-->
         </section>
 
     </div>
