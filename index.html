@@ -148,10 +148,12 @@ Observable.prototype.subscribe = function (onNext, onError, onCompleted) { ... }
 
             <aside class="notes">
                 Dans la librairie RxJS, Subjects hérite de Observable. Donc un Subject a les même opérateurs et méthodes
-                que Observable. La différence entre un Subject et un Observable est que <strong>le Subject a un etat et une
-                liste d'Observers</strong> tandis que l'Observable est simplement une <strong>fonction</strong>. <br>Les Subject permettent de créer
+                que Observable. La différence entre un Subject et un Observable est que <strong>le Subject a un etat et
+                une
+                liste d'Observers</strong> tandis que l'Observable est simplement une <strong>fonction</strong>. <br>Les
+                Subject permettent de créer
                 des sources de données tandis que les Observable emettent les données.
-<br>
+                <br>
                 RxJS combine des Subjects, des Observables, des Operateurs, et des Observers. Les Observables envoient
                 des notifications, les Opérateurs les transforment, tandis que les Observeurs les reçoivent.
             </aside>
@@ -236,26 +238,6 @@ Observable.prototype.subscribe = function (onNext, onError, onCompleted) { ... }
             <iframe class="marble-container" src="rxmarbles.html?type=reduce" frameborder="0"></iframe>
         </section>
 
-        <section>
-            <h4>ASCII diagrams</h4>
-            <pre><code class="code javascript" contenteditable data-trim>
-// letters:
-// -----a-----b-----c-----d-----e-----f-----|
-
-const uppercase = letters.map(x => x.toUpperCase());
-
-// -----A-----B-----C-----D-----E-----F-----|
-
-const delayed = uppercase.delay(1000);
-
-// ---------------A-----B-----C-----D-----E-----F-----|
-
-const firstThree = delayed.take(3);
-
-// ---------------A-----B-----C|
-                    </code></pre>
-        </section>
-
         <section class="transparent">
             <h4><strong>Hot</strong> vs. <em>Cold</em> Observables</h4>
             <div class="fragment callout position-top"
@@ -321,6 +303,7 @@ Rx.Observable
             <div class="fragment">
                 <img src="img/buffer.png" alt=""
                      style="padding: 2rem; background:white; border-radius: 2rem">
+            </div>
 
         </section>
 
@@ -391,8 +374,9 @@ export class List {
 }
                     </code></pre>
             <!-- http://plnkr.co/edit/nYJR0DxHjArNoBx20fnm -->
-            <aside class="note">
-                every time something changes in our application, as a result of various user events, timers, XHR, promises, etc., a change detection will run on all components.
+            <aside class="notes">
+                A chaques fois que quelque chose change dans notre app, comme n'importe quel interaction utilisateur,
+                click, XHR, promises, etc., a change detection will run on all components.
             </aside>
         </section>
 
@@ -506,8 +490,180 @@ export class Autocomplete implements OnInit {
             <!-- http://plnkr.co/edit/gPInaMHTbVsI17oKQV9u -->
         </section>
 
+        <section>
+            <h2>Testing ?</h2>
+            <pre><code class="code javascript" contenteditable data-trim>
+// letters:
+// -----a-----b-----c-----d-----e-----f-----|
+
+const uppercase = letters.map(x => x.toUpperCase());
+
+// -----A-----B-----C-----D-----E-----F-----|
+
+const delayed = uppercase.delay(1000);
+
+// ---------------A-----B-----C-----D-----E-----F-----|
+
+const firstThree = delayed.take(3);
+
+// ---------------A-----B-----C|
+                    </code></pre>
+        </section>
+
+        <section style="text-align: left;">
+            <div class="marble">
+                <p class="fragment">
+                    <code>'-'</code>
+                    ou
+                    <code>'------'</code>
+
+                </p>
+                <hr>
+                <p class="fragment">
+
+                    <br><code>'--a--b--|'</code>
+                </p>
+                <hr>
+                <p class="fragment">
+                    <br><code>'--a--b--#'</code>
+                </p>
+                <hr>
+                <p class="fragment">
+                    <br><code>'--(abc)-|'</code>
+
+                </p>
+            </div>
+            <aside class="notes">
+                <p>Equivalent a never() ou un observable qui n'emet ou qui ne se complete pas</p>
+                <p>Sur la frame 2 emet a, sur la 5, b, et sur la 8, complete</p>
+                <p>Sur la 2 emit a, sur la 5 emit b, et sur la frame 8, erreur</p>
+                <p>Sur la 2 emit a, b, et c, et complete</p>
+            </aside>
+        </section>
+
+        <section style="text-align: left;">
+            <div class="marble">
+                <pre><code class="code typescript" data-trim>
+export class ColorMixer {
+  static mix(r: Observable&lt;boolean>,
+             y: Observable&lt;boolean>,
+             b: Observable&lt;boolean>,<span class="fragment">
+             mixingTime = 1000,</span><span class="fragment">
+             scheduler: IScheduler = async): Observable&lt;Color> {</span>
+
+      return Observable.combineLatest(
+      r.startWith(false),
+      y.startWith(false),
+      b.startWith(false),
+
+      (redOn, yellowOn, blueOn) => {
+
+        if (!redOn && !yellowOn && !blueOn) {
+          return Color.NONE;
+        } else if (redOn && !yellowOn && !blueOn) {
+          return Color.RED;
+        } else if (redOn && yellowOn && !blueOn) {
+          return Color.ORANGE;
+        } else if (!redOn && yellowOn && !blueOn) {
+          return Color.YELLOW;
+        } else if (!redOn && yellowOn && blueOn) {
+          return Color.GREEN;
+        } else if (!redOn && !yellowOn && blueOn) {
+          return Color.BLUE;
+        } else if (redOn && !yellowOn && blueOn) {
+          return Color.PURPLE;
+        } else {
+          return Color.BLACK;
+        }
+    })
+      .debounceTime(mixingTime, scheduler)
+      .startWith(Color.NONE)<span class="fragment">
+      .distinctUntilChanged();</span>
+  }
+
+}
+
+                </code></pre>
+            </div>
+            <aside class="notes">
+                <p>Allow configuration during testing</p>
+                <p>Allow the use of the TestScheduler during testing</p>
+            </aside>
+        </section>
+
+        <section style="text-align: left;">
+            <div class="marble">
+                <pre><code class="code typescript" data-trim>
+describe('ColorMixer', () => {
+
+  describe('mix', () => {
+
+    it('should mix colors', () => {
+      const r = cold('--o--x--|', onOffMarbles());
+      const y = cold('--------|', onOffMarbles());
+      const b = cold('--o-----|', onOffMarbles());
+      const c = cold('x---p--b|', colorMarbles());
+
+      expect(mix(r, y, b)).toBeObservable(c);
+    });
+
+  });
+
+});
+
+
+// TestScheduler <3
+function mix(r: Observable&lt;boolean>,
+             y: Observable&lt;boolean>,
+             b: Observable&lt;boolean>) {
+  return ColorMixer.mix(r, y, b, 20, getTestScheduler());
+}
+
+function onOffMarbles() {
+  return {
+    o: true,
+    x: false
+  }
+}
+
+function colorMarbles() {
+  return {
+    x: Color.NONE,
+    r: Color.RED,
+    o: Color.ORANGE,
+    y: Color.YELLOW,
+    g: Color.GREEN,
+    b: Color.BLUE,
+    p: Color.PURPLE,
+    B: Color.BLACK
+  }
+}
+
+                </code></pre>
+            </div>
+            <aside class="notes">
+                <p>commence a mixer le red et blue a la frame 20.
+                   Le violet est créé a la frame 40 parcequ'on a 20 frames de durée de melange.
+                   on vire le red a la frame 50 pour faire du bleu a la frame 70.</p>
+            </aside>
+        </section>
+
         <section style="text-align: left;">
             <h1>THE END</h1>
+            <div>
+            <ul>
+                <li>
+                    <a href="https://github.com/wprod/rxjs">RxJs Operators</a>
+                </li>
+                <li>
+                    <a href="https://github.com/wprod/wizbii-talk">RxJs Slides</a>
+                </li>
+                <li>
+                    <a href="https://alligator.io/rxjs/marble-testing/">Marble Article</a>
+                </li>
+            </ul>
+            </div>
+
         </section>
 
     </div>

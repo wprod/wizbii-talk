@@ -10,6 +10,28 @@ body {
     background-size: cover;
 }
 
+.marble {
+ font-size: 1.1rem;
+}
+
+.marble .fragment {
+    text-align: center;
+}
+
+.marble code {
+    background: #f3f1eb;
+    padding: 5px 10px;
+    font-size: 2.5rem;
+    border-radius: 3px;
+    border: 1px solid #c0beae;
+}
+
+.marble hr {
+    padding: 0;
+    margin-bottom: -20px;
+    margin-top: 40px;
+}
+
 section {
     background: #f9f4e7;
     padding: 2rem !important;

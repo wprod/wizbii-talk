@@ -1,0 +1,9 @@
+<input [(ngModel)]="search" (ngModelChange)="onSearchChange($event)">
+
+<ul>
+  <li *ngFor="let suggestion  of (suggestions | async)">
+    {{ suggestion }}
+  </li>
+</ul>
+
+{{ (suggestions | async) | json }}
