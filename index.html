@@ -147,10 +147,8 @@ Observable.prototype.subscribe = function (onNext, onError, onCompleted) { ... }
                     </code></pre>
 
             <aside class="notes">
-                Dans la librairie RxJS, Subjects hérite de Observable. Donc un Subject a les même opérateurs et méthodes
-                que Observable. La différence entre un Subject et un Observable est que <strong>le Subject a un etat et
-                une
-                liste d'Observers</strong> tandis que l'Observable est simplement une <strong>fonction</strong>. <br>Les
+                <strong>le Subject a un etat et
+                une liste d'Observers</strong> tandis que l'Observable est simplement une <strong>fonction</strong>. <br>Les
                 Subject permettent de créer
                 des sources de données tandis que les Observable emettent les données.
                 <br>
@@ -237,6 +235,18 @@ Observable.prototype.subscribe = function (onNext, onError, onCompleted) { ... }
             <h2>reduce</h2>
             <iframe class="marble-container" src="rxmarbles.html?type=reduce" frameborder="0"></iframe>
         </section>
+
+        <section>
+            <h2>Et plein d'autres...</h2>
+            <div>
+            <ul>
+                <li>
+                    <a target="_blank" href="https://github.com/wprod/rxjs">RxJs Operators</a>
+                </li>
+            </ul>
+            </div>
+        </section>
+
 
         <section class="transparent">
             <h4><strong>Hot</strong> vs. <em>Cold</em> Observables</h4>
